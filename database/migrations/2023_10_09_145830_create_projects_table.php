@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('link')->required();
             $table->date('published_date')->nullable();
-            $table->json("language")->nullable();
+            $table->json('language')->nullable();
 
 
             $table->timestamps();
