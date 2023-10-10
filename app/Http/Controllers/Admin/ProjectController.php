@@ -43,7 +43,7 @@ class ProjectController extends Controller {
 
         $selectedComic = Project::findOrFail($id);
 
-        return view("admin.projects.show", compact("id"));
+        return view("admin.projects.show", compact(""));
     }
 
     //*'CREATE' FUNCTION
