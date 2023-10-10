@@ -13,13 +13,24 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//CREATE
-Route::get("/admin/projects/create", [ProjectController::class, "create"])->name("admin.projects.create");
-Route::post("/admin/projects", [ProjectController::class, "store"])->name("admin.projects.store");
+//TODO Raggruppo queste rotte utilizzando il middleware() per assicurarmi che siano accessibili esclusivamente dagli utenti loggati
 
-//READ
-Route::get("/admin/projects", [ProjectController::class, "index"])->name("admin.projects.index");
-Route::get("/admin/projects/{id}", [ProjectController::class, "show"])->name("admin.projects.show");
+Route::middleware(['auth', 'verified'])
+
+    ->prefix("admin")
+    ->name("admin.")
+    ->group(function() {
+
+    //CREATE
+    Route::get("/projects/create", [ProjectController::class, "create"])->name("projects.create");
+    Route::post("/projects", [ProjectController::class, "store"])->name("projects.store");
+    
+    //READ
+    Route::get("/projects", [ProjectController::class, "index"])->name("projects.index");
+    Route::get("/projects/{id}", [ProjectController::class, "show"])->name("projects.show");
+
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
