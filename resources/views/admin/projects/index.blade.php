@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'I miei progetti')
+@section('title', 'I miei progetti personali')
 
 @section('content')
 
@@ -37,7 +37,7 @@
 
                         <div class="card-body">
 
-                            <button class="btn btn-primary"><a href="{{ route('admin.projects.show', $project->slug) }}">Guarda progetto</a></button>
+                            <button class="btn btn-primary"><a href="{{ route('admin.projects.show', $project->slug) }}">Vai al progetto</a></button>
 
                         </div>
 

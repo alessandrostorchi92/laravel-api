@@ -7,18 +7,19 @@ use App\Models\Project;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 
 
-class ProjectController extends Controller {
+class ProjectController extends Controller
+{
 
-     //*'INDEX' FUNCTION
+    //*'INDEX' FUNCTION
 
     /**
      * Ritorna la lista di tutti i progetti all'interno della view "projects.index"
      *
      * @return View
      */
-
 
     public function index(): View
     {
@@ -34,16 +35,16 @@ class ProjectController extends Controller {
      * Recupera il progetto che corrisponde all'id ricevuto come argomento
      * e lo ritorna all'interno della view "projects.show"
      *
-     * @param int $id ID del fumetto da visualizzare
+     * @param string $slug del progetto da visualizzare
      * @return View
      */
 
-    public function show($id): View
+    public function show(string $slug): View
     {
 
-        $selectedComic = Project::findOrFail($id);
+        $project = Project::where("slug", $slug)->first(); // $project[0]
 
-        return view("admin.projects.show", compact(""));
+        return view("admin.projects.show", compact("project"));
     }
 
     //*'CREATE' FUNCTION
@@ -54,7 +55,9 @@ class ProjectController extends Controller {
      *
      * @return View
      */
-    public function create(): View {
+
+    public function create(): View
+    {
         return view("admin.projects.create");
     }
 
@@ -67,7 +70,9 @@ class ProjectController extends Controller {
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse {
+
+    public function store(Request $request): RedirectResponse
+    {
 
         // Procedo alla validazione base dei dati ricevuti
 
@@ -82,19 +87,47 @@ class ProjectController extends Controller {
 
         ]);
 
+        $data["slug"] = $this->generateSlug($data["title"]);
+
         $data["language"] = json_encode([$data["language"]]);
+
+        $data["slug"] = Str::slug($data["title"]);
 
         // $project = new Project();
         // $post->fill($data);
         // $post->save()
-        
+
         // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
         $project = Project::create($data);
 
         return redirect()->route("admin.projects.show");
-    
     }
 
+
+    /**
+     * Funzione per generare gli Slugs
+     *
+     * @param string $title del progetto
+     * @return string $slug del titolo del progetto
+     */
+
+    protected function generateSlug($title) {
+
+        $counter = 0;
+
+        do {
+
+            // Creo uno slug e se il counter è maggiore di 0, allora concateno il counter
+            $slug = Str::slug($title) . ($counter > 0 ? "-" . $counter : "");
+
+
+            // Cerco se esiste già un elemento con questo slug
+            $alreadyExists = Project::where("slug", $slug)->first();
+
+            $counter++;
+        } while ($alreadyExists);
+
+        return $slug;
+        
+    }
 }
-
-
