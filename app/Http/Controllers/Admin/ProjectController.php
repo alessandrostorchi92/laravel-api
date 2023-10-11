@@ -81,20 +81,20 @@ class ProjectController extends Controller {
 
         ]);
 
-        dd($data);
-
         $data["slug"] = $this->generateSlug($data["title"]);
 
         $data["language"] = json_encode([$data["language"]]);
 
         $data["slug"] = Str::slug($data["title"]);
 
-        // $project = new Project();
-        // $post->fill($data);
-        // $post->save()
+        // dd($data);
 
-        // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
-        $project = Project::create($data);
+        $project = new Project();
+        $project->fill($data);
+        $project->save();
+
+        // // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
+        // $project = Project::create($data);
 
         return redirect()->route("admin.projects.show", $project->slug);
     }

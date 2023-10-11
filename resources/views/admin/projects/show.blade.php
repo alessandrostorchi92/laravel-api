@@ -10,7 +10,7 @@
 
         <div class="col-6">
 
-            <div class="card">
+            <div class="card text-center" style="width: 18rem;">
 
                 <img src="{{ $project->thumb }}" class="card-img-top" alt="...">
 
@@ -25,15 +25,9 @@
                 <ul class="list-group list-group-flush">
 
                     <li class="list-group-item">{{ $project->published_date }}</li>
-                    <li class="list-group-item">{{ $projec?->language }}</li>
+                    <li class="list-group-item">{{ $project?->language }}</li>
 
                 </ul>
-
-                <div class="card-body">
-
-                    <button class="btn btn-primary"><a href="{{ route('admin.projects.show', $project->slug) }}">Guarda progetto</a></button>
-
-                </div>
 
             </div>
 
