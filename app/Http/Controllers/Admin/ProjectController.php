@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function show(string $slug): View {
+    public function show(string $slug): View
+    {
 
         $project = Project::where("slug", $slug)->firstOrFail(); // $project[0]
 
@@ -55,7 +57,8 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function create(): View {
+    public function create(): View
+    {
         return view("admin.projects.create");
     }
 
@@ -69,7 +72,8 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function store(ProjectStoreRequest $request): RedirectResponse {
+    public function store(ProjectStoreRequest $request): RedirectResponse
+    {
 
         // Procedo alla validazione base dei dati ricevuti
 
@@ -100,28 +104,40 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function edit(string $slug): View {
+    public function edit(string $slug): View
+    {
 
         $project = Project::where("slug", $slug)->firstOrFail();
 
         return view("admin.projects.edit", compact("project"));
-
     }
 
     /**
      * Riceve i dati inviati dal form edit e aggiorna il progetto che corrisponde
      * allo slug indicato come argomento
      *
-     * @param Request $request
+     * @param ProjectUpdateRequest $request
      * @param string $slug del progetto da modificare
      * @return RedirectResponse
      */
 
-     public function update(Request $request, int $id): RedirectResponse {
-        
+    public function update(ProjectUpdateRequest $request, string $slug): RedirectResponse {
+
         $project = Project::where("slug", $slug)->firstOrFail();
 
         $data = $request->validated();
+
+        // $project = new Project();
+        // $project->fill($data);
+        // $project->save();
+
+        // L'update() esegue le operazioni: l'istanza di Project, il fill() e il save() in un unico comando
+
+        $project->update($data);
+
+        return redirect()->route("admin.projects.show", $project->slug);
+        
+    }
 
 
 
@@ -133,7 +149,8 @@ class ProjectController extends Controller
      * @return string $slug del titolo del progetto
      */
 
-    protected function generateSlug($title) {
+    protected function generateSlug($title)
+    {
 
         $counter = 0;
 
