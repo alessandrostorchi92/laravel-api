@@ -33,7 +33,11 @@ Route::middleware(['auth', 'verified'])
     
     //READ
     Route::get("/projects", [AdminProjectController::class, "index"])->name("projects.index");
-    Route::get("/projects/{id}", [AdminProjectController::class, "show"])->name("projects.show");
+    Route::get("/projects/{slug}", [AdminProjectController::class, "show"])->name("projects.show");
+
+    //UPDATE
+    Route::get("/projects/{slug}/edit", [AdminProjectController::class, "edit"])->name("projects.edit");
+    Route::put("/projects/{slug}", [AdminProjectController::class, "update"])->name("projects.update");
 
 });
 
