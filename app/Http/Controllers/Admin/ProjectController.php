@@ -89,12 +89,12 @@ class ProjectController extends Controller {
 
         // dd($data);
 
-        $project = new Project();
-        $project->fill($data);
-        $project->save();
+        // $project = new Project();
+        // $project->fill($data);
+        // $project->save();
 
-        // // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
-        // $project = Project::create($data);
+        // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
+        $project = Project::create($data);
 
         return redirect()->route("admin.projects.show", $project->slug);
     }

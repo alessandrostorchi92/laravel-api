@@ -16,7 +16,7 @@
 
                 <div class="col-4">
 
-                    <div class="card" style="width: 18rem;">
+                    <div class="card text-center" style="width: 18rem;">
 
                         <img src="{{ $project->thumb }}" class="card-img-top" alt="...">
 
@@ -37,7 +37,7 @@
 
                         <div class="card-body">
 
-                            <button class="btn btn-primary border-0 rounded-50"><a class="text-decoration-none text-light fw-medium btn btn-link" href="{{ route('admin.projects.show', $project->slug) }}">MOSTRA</button>
+                            <button class="btn btn-outline-light"><a class="text-decoration-none" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fas fa-eye"></i></button>
 
                         </div>
 
