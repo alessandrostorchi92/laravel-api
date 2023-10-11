@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectStoreRequest;
 use App\Models\Project;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -66,20 +67,11 @@ class ProjectController extends Controller {
      * @return RedirectResponse
      */
 
-    public function store(Request $request): RedirectResponse {
+    public function store(ProjectStoreRequest $request): RedirectResponse {
 
         // Procedo alla validazione base dei dati ricevuti
 
-        $data = $request->validate([
-
-            "title" => "required|string|max:100",
-            "description" => "nullable|string|min:1|max:1000",
-            "thumb" => "nullable|url",
-            "link" => "required|url",
-            "published_date" => "nullable|date|after:today",
-            'language' => "nullable|string|max:50",
-
-        ]);
+        $data = $request->validated();
 
         $data["slug"] = $this->generateSlug($data["title"]);
 
@@ -89,12 +81,12 @@ class ProjectController extends Controller {
 
         // dd($data);
 
-        $project = new Project();
-        $project->fill($data);
-        $project->save();
+        // $project = new Project();
+        // $project->fill($data);
+        // $project->save();
 
-        // // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
-        // $project = Project::create($data);
+        // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
+        $project = Project::create($data);
 
         return redirect()->route("admin.projects.show", $project->slug);
     }

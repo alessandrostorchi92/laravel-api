@@ -57,12 +57,12 @@
 
             <div class="mb-4">
 
-                <label for="link" class="form-label fw-medium">Link</label>
-                <input type="url" id="link" placeholder="Inserisci il link del nuovo progetto" name="link"
-                    class="form-control @error('link') is-invalid @enderror" value="{{ old("link") }}">
+                <label for="link" class="form-label">Link</label>
+                <input type="text" id="link" name="link" class="form-control @error("link") is-invalid                            
+                @enderror" value="{{old("link")}}">
 
-                @error('link')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                @error("link")
+                    <div class="invalid-feedback">{{$message}}</div>
                 @enderror
 
             </div>
@@ -82,14 +82,16 @@
             {{-- Language  --}}
 
             <div class="mb-4">
-                <label for="language" class="form-label fw-medium">Lingua</label>
-                <input type="text" class="form-control @error('language') is-invalid @enderror" id="language"
-                    placeholder="Inserisci la lingua del nuovo progetto" name="language" value="{{ old("language") }}">
-            </div>
 
-            @error('language')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+                <label for="language" class="form-label">Languages</label>
+                <input type="text" class="form-control @error("language") is-invalid                            
+                @enderror" id="language" name="language" value="{{old("language")}}" >
+
+                @error("language")
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+                
+            </div>
 
             {{-- Buttons container  --}}
 
