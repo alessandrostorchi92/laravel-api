@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectStoreRequest extends FormRequest {
+class ProjectUpdateRequest extends FormRequest {
 
     /**
      * Determine if the user is authorized to make this request.
      */
-    
-    public function authorize(): bool {
 
+    public function authorize(): bool {
+        
         // Recupero l'utente attualmente loggato
 
         $user = Auth::user();
@@ -21,6 +21,7 @@ class ProjectStoreRequest extends FormRequest {
         if ($user->email === "storchi.alle@gmail.com") {
 
             return true;
+
         }
 
         // Altriementi l'operazione viene bloccata e ritorna un errore 403 di non autorizzazione
@@ -32,8 +33,9 @@ class ProjectStoreRequest extends FormRequest {
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+
+    public function rules(): array {
+
         return [
 
             "title" => "required|string|max:100",
@@ -42,7 +44,7 @@ class ProjectStoreRequest extends FormRequest {
             "link" => "required|url",
             "published_date" => "nullable|date",
             "language" => "nullable|string|max:50",
-            
+
         ];
     }
 
@@ -51,9 +53,11 @@ class ProjectStoreRequest extends FormRequest {
  *
  * @return array<string, string>
  */
-public function messages(): array
-{
+
+public function messages(): array {
+
     return [
+        
         'title.required' => "Devi specificare un titolo per il progetto",
         'title.max' => "Il titolo deve avere al massimo 100 caratteri (spazi compresi)",
         'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",

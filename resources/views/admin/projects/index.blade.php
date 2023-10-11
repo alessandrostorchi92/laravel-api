@@ -10,11 +10,11 @@
 
     <div class="container mt-5">
 
-        <div class="row">
+        <div class="row row-cols-3">
 
             @foreach ($projects as $project)
 
-                <div class="col">
+                <div class="col d-flex justify-content-center">
 
                     <div class="card text-center" style="width: 18rem;">
 
@@ -30,7 +30,7 @@
                         <ul class="list-group list-group-flush">
 
                             <li class="list-group-item">{{ $project->published_date }}</li>
-                            <li class="list-group-item">{{ $project->language }}</li>
+                            <li class="list-group-item fs-3 text">{{ $project->language }}</li>
 
                         </ul>
 
@@ -46,7 +46,7 @@
 
             @endforeach
 
-            <div class="mt-5 d-flex justify-content-center gap-3">
+            <div class="container mt-5 text-center">
 
                 <button class="btn btn-danger btn-lg border-0 rounded-50">
                     <a class="text-decoration-none text-light fw-medium" href="{{ route('admin.projects.create') }}" class="btn btn-link">AGGIUNGI PROGETTO</a>

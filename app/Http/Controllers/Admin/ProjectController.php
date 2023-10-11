@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
-class ProjectController extends Controller {
+class ProjectController extends Controller
+{
 
     //*'INDEX' FUNCTION
 
@@ -20,7 +21,8 @@ class ProjectController extends Controller {
      * @return View
      */
 
-    public function index(): View {
+    public function index(): View
+    {
 
         $projects = Project::all();
 
@@ -39,7 +41,7 @@ class ProjectController extends Controller {
 
     public function show(string $slug): View {
 
-        $project = Project::where("slug", $slug)->first(); // $project[0]
+        $project = Project::where("slug", $slug)->firstOrFail(); // $project[0]
 
         return view("admin.projects.show", compact("project"));
     }
@@ -63,7 +65,7 @@ class ProjectController extends Controller {
      * Riceve i dati inviati dal form create e li salva nel database
      * creando un nuovo record nella tabella projects
      *
-     * @param Request $request
+     * @param ProjectStoreRequest $request
      * @return RedirectResponse
      */
 
@@ -92,6 +94,39 @@ class ProjectController extends Controller {
     }
 
     /**
+     * Ritorna una view "admin.projects.edit" con all'interno un form per modificare i dati dei progetti che corrisponde all'id ricevuto come argomento
+     *
+     * @param string $slug del progetto da modificare
+     * @return View
+     */
+
+    public function edit(string $slug): View {
+
+        $project = Project::where("slug", $slug)->firstOrFail();
+
+        return view("admin.projects.edit", compact("project"));
+
+    }
+
+    /**
+     * Riceve i dati inviati dal form edit e aggiorna il progetto che corrisponde
+     * allo slug indicato come argomento
+     *
+     * @param Request $request
+     * @param string $slug del progetto da modificare
+     * @return RedirectResponse
+     */
+
+     public function update(Request $request, int $id): RedirectResponse {
+        
+        $project = Project::where("slug", $slug)->firstOrFail();
+
+        $data = $request->validated();
+
+
+
+
+    /**
      * Funzione per generare gli Slugs
      *
      * @param string $title del progetto
@@ -112,10 +147,8 @@ class ProjectController extends Controller {
             $alreadyExists = Project::where("slug", $slug)->first();
 
             $counter++;
-
         } while ($alreadyExists);
 
         return $slug;
-
     }
 }

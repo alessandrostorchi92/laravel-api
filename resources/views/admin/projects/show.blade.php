@@ -8,9 +8,9 @@
 
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-12 d-flex  justify-content-center">
 
-            <div class="card text-center" style="width: 18rem;">
+            <div class="card text-center w-50">
 
                 <img src="{{ $project->thumb }}" class="card-img-top" alt="...">
 
