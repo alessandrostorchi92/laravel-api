@@ -10,11 +10,11 @@
 
     <div class="container mt-5">
 
-        <div class="row">
+        <div class="row row-cols-4 justify-content-center">
 
             @foreach ($projects as $project)
 
-                <div class="col-4">
+                <div class="col">
 
                     <div class="card text-center" style="width: 18rem;">
 
