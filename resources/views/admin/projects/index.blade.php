@@ -10,7 +10,7 @@
 
     <div class="container mt-5">
 
-        <div class="row row-cols-4 justify-content-center">
+        <div class="row">
 
             @foreach ($projects as $project)
 
@@ -23,7 +23,6 @@
                         <div class="card-body">
 
                             <h5 class="card-title">{{ $project->title }}</h5>
-
                             <p class="card-text">{{ $project->description }}</p>
 
                         </div>
@@ -37,7 +36,7 @@
 
                         <div class="card-body">
 
-                            <button class="btn btn-outline-light"><a class="text-decoration-none" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-outline-light"><a class="text-decoration-none" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fa-regular fa-eye"></i></button>
 
                         </div>
 
