@@ -47,6 +47,14 @@
 
             @endforeach
 
+            <div class="mt-5 d-flex justify-content-center gap-3">
+
+                <button class="btn btn-danger btn-lg border-0 rounded-50">
+                    <a class="text-decoration-none text-light fw-medium" href="{{ route('admin.projects.create') }}" class="btn btn-link">AGGIUNGI PROGETTO</a>
+                </button>
+    
+            </div>
+
         </div>
 
     </div>

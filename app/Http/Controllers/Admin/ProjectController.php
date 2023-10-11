@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
-
-class ProjectController extends Controller
-{
+class ProjectController extends Controller {
 
     //*'INDEX' FUNCTION
 
@@ -21,8 +19,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function index(): View
-    {
+    public function index(): View {
 
         $projects = Project::all();
 
@@ -39,8 +36,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function show(string $slug): View
-    {
+    public function show(string $slug): View {
 
         $project = Project::where("slug", $slug)->first(); // $project[0]
 
@@ -56,8 +52,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function create(): View
-    {
+    public function create(): View {
         return view("admin.projects.create");
     }
 
@@ -71,8 +66,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function store(Request $request): RedirectResponse
-    {
+    public function store(Request $request): RedirectResponse {
 
         // Procedo alla validazione base dei dati ricevuti
 
@@ -87,6 +81,8 @@ class ProjectController extends Controller
 
         ]);
 
+        dd($data);
+
         $data["slug"] = $this->generateSlug($data["title"]);
 
         $data["language"] = json_encode([$data["language"]]);
@@ -100,9 +96,8 @@ class ProjectController extends Controller
         // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
         $project = Project::create($data);
 
-        return redirect()->route("admin.projects.show");
+        return redirect()->route("admin.projects.show", $project->slug);
     }
-
 
     /**
      * Funzione per generare gli Slugs
@@ -125,9 +120,10 @@ class ProjectController extends Controller
             $alreadyExists = Project::where("slug", $slug)->first();
 
             $counter++;
+
         } while ($alreadyExists);
 
         return $slug;
-        
+
     }
 }

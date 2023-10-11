@@ -25,7 +25,7 @@
                 <ul class="list-group list-group-flush">
 
                     <li class="list-group-item">{{ $project->published_date }}</li>
-                    <li class="list-group-item">{{ $project->language }}</li>
+                    <li class="list-group-item">{{ $projec?->language }}</li>
 
                 </ul>
 
