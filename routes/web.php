@@ -14,7 +14,6 @@ Route::get('/', function () {
 Route::get("/projects", [GuestProjectController::class, "index"])->name("guest.index");
 
 
-
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
