@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified'])
     Route::get("/projects/{slug}/edit", [AdminProjectController::class, "edit"])->name("projects.edit");
     Route::put("/projects/{slug}", [AdminProjectController::class, "update"])->name("projects.update");
 
+    //DELETE
+    Route::delete("/projects/{slug}", [AdminProjectController::class, "destroy"])->name("projects.destroy");
+
 });
 
 

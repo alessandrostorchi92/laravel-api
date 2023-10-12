@@ -13,10 +13,9 @@
         <div class="row row-cols-3">
 
             @foreach ($projects as $project)
-
                 <div class="col d-flex justify-content-center">
 
-                    <div class="card text-center" style="width: 18rem;">
+                    <div class="card h-100 text-center" style="width: 18rem;">
 
                         <img src="{{ $project->thumb }}" class="card-img-top" alt="...">
 
@@ -34,24 +33,42 @@
 
                         </ul>
 
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column gap-2">
 
-                            <button class="btn btn-outline-light"><a class="text-decoration-none" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fa-regular fa-eye"></i></button>
+                            {{-- CTA Mostra dettagli  --}}
+                            <button class="btn btn-outline-info"><a class="text-decoration-none"
+                                    href="{{ route('admin.projects.show', $project->slug) }}"><i
+                                        class="fa-regular fa-eye"></i></a></button>
+
+                            {{-- CTA Modifica progetto  --}}
+                            <button class="btn btn-outline-warning"><a class="text-decoration-none"
+                                    href="{{ route('admin.projects.edit', $project->slug) }}"><i
+                                        class="fas fa-edit"></i></a></button>
+
+                            {{-- CTA Elimina progetto  --}}
+                            <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
+                                @csrf()
+                                @method("DELETE")
+
+                                <button class="btn btn-outline-danger"><a class="text-decoration-none"
+                                    href="{{ route('admin.projects.index', $project->slug) }}"><i class="fas fa-trash"></i></a></button>
+
+                            </form>
 
                         </div>
 
                     </div>
 
                 </div>
-
             @endforeach
 
             <div class="container mt-5 text-center">
 
                 <button class="btn btn-danger btn-lg border-0 rounded-50">
-                    <a class="text-decoration-none text-light fw-medium" href="{{ route('admin.projects.create') }}" class="btn btn-link">AGGIUNGI PROGETTO</a>
+                    <a class="text-decoration-none text-light fw-medium" href="{{ route('admin.projects.create') }}"
+                        class="btn btn-link">AGGIUNGI PROGETTO</a>
                 </button>
-    
+
             </div>
 
         </div>

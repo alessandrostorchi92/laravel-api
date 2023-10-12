@@ -9,6 +9,7 @@ use App\Models\Project;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -124,8 +125,14 @@ class ProjectController extends Controller
     public function update(ProjectUpdateRequest $request, string $slug): RedirectResponse {
 
         $project = Project::where("slug", $slug)->firstOrFail();
-
         $data = $request->validated();
+        // Il validated ritorna un array $data["title]
+        //Il firstOrFail ritorna un'istanza di classe $project->title
+
+        // Se il titolo è diverso da quello originale, allora devo anche rigenerare lo slug relativo
+        if ($data["title"] !== $project->title) {
+            $data["slug"] = $this->generateSlug($data["title"]);
+        }
 
         // $project = new Project();
         // $project->fill($data);
@@ -136,14 +143,36 @@ class ProjectController extends Controller
         $project->update($data);
 
         return redirect()->route("admin.projects.show", $project->slug);
+    }
+
+    /**
+     * Rimuove il progetto che corrisponde allo slug ricevuto come argomento
+     *
+     * @param string $slug del progetto da eliminare
+     * @return RedirectResponse
+     */
+
+    public function destroy(string $slug): RedirectResponse {
+
+        // Conferisco solo all'admin la facoltà di eliminare i progetti 
+
+        if (Auth::user()->email !== "storchi.alle@gmail.com") {
+            return abort(403);
+        }
         
+        $project = Project::where("slug", $slug)->firstOrFail();
+
+        // elimino il progetto
+        $project->delete();
+
+        return redirect()->route("admin.projects.index");
     }
 
 
 
 
     /**
-     * Funzione per generare gli Slugs
+     * Funzione per generare gli Slugs: In sintesi, questa funzione genera uno slug a partire dal titolo di un progetto e assicura che il risultante slug sia univoco all'interno del database dei progetti. Se esistono più progetti con lo stesso titolo, verranno generati slug diversi aggiungendo un contatore numerico alla fine.
      *
      * @param string $title del progetto
      * @return string $slug del titolo del progetto
@@ -165,6 +194,7 @@ class ProjectController extends Controller
 
             $counter++;
         } while ($alreadyExists);
+        // Se la variabile $alreadyExists è true allora ritorna lo slug altrimenti il ciclio do rincomincia con il counter incrementato di 1 
 
         return $slug;
     }
