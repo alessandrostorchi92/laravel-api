@@ -26,15 +26,9 @@ class TypesTableSeeder extends Seeder {
 
         foreach ($types as $type) {
 
-            // $newType = new Type();
-            // $newType->name = $type["name"];    
-            // $newType->save();
-
-            // Per risparmiare righe di codice posso usare questo comando per eseguire tutte le tre operazioni precedenti 
-
-            Type::create([
-
-                $type => 'name']);
+            $newType = new Type();
+            $newType->name = $type;    
+            $newType->save();
 
         }
 
