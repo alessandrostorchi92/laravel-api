@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    
+
     public function up(): void {
         Schema::create('types', function (Blueprint $table) {
             $table->id();
@@ -28,3 +28,4 @@ return new class extends Migration
         Schema::dropIfExists('types');
     }
 };
+ 
