@@ -18,7 +18,17 @@ class Project extends Model {
         'link',
         'published_date',
         'language',
+        'type_id',
 
     ];
+
+    // Questo metodo mette in relazione la tabella projects con quella types
+    public function type() {
+        
+        // Più types possono appartenere ad un medesimo progetto
+        return $this->belongsTo(Type::class);
+         
+    }
+
 
 }
