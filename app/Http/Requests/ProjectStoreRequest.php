@@ -56,6 +56,7 @@ class ProjectStoreRequest extends FormRequest {
 public function messages(): array
 {
     return [
+        
         'title.required' => "Devi specificare un titolo per il progetto",
         'title.max' => "Il titolo deve avere al massimo 100 caratteri (spazi compresi)",
         'description.max' => "La descrizione non deve superare i 500 caratteri (spazi compresi)",
