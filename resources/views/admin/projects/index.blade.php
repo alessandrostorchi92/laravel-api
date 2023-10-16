@@ -10,7 +10,7 @@
 
     <div class="container mt-5">
 
-        <div class="row row-cols-3 justify-content-center">
+        <div class="row row-cols-3 justify-content-center g-4">
 
             @foreach ($projects as $project)
 
@@ -39,22 +39,20 @@
                             <div class="card-body d-flex flex-column gap-2">
     
                                 {{-- CTA Mostra dettagli  --}}
-                                <button class="btn btn-outline-info"><a class="text-decoration-none"
-                                        href="{{ route('admin.projects.show', $project->slug) }}"><i
-                                            class="fa-regular fa-eye"></i></a></button>
+                                <button class="btn btn-outline-info"><a class="text-decoration-none fw-bold"
+                                        href="{{ route('admin.projects.show', $project->slug) }}">MOSTRA DETTAGLI</a></button>
     
                                 {{-- CTA Modifica progetto  --}}
-                                <button class="btn btn-outline-warning"><a class="text-decoration-none"
-                                        href="{{ route('admin.projects.edit', $project->slug) }}"><i
-                                            class="fas fa-edit"></i></a></button>
+                                <button class="btn btn-outline-warning"><a class="text-decoration-none fw-bold"
+                                        href="{{ route('admin.projects.edit', $project->slug) }}">MODIFICA</a></button>
     
                                 {{-- CTA Elimina progetto  --}}
                                 <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
                                     @csrf()
                                     @method("DELETE")
     
-                                    <button class="btn btn-outline-danger w-100"><a class="text-decoration-none"
-                                        href="{{ route('admin.projects.index', $project->slug) }}"><i class="fas fa-trash"></i></a></button>
+                                    <button class="btn btn-outline-danger w-100"><a class="text-decoration-none fw-bold"
+                                        href="{{ route('admin.projects.index', $project->slug) }}">CANCELLA</a></button>
     
                                 </form>
     

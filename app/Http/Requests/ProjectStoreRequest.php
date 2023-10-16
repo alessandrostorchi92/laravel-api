@@ -42,6 +42,8 @@ class ProjectStoreRequest extends FormRequest {
             "link" => "required|url",
             "published_date" => "nullable|date",
             "language" => "nullable|string|max:50",
+            // Exists assicura che l'id passato esista nella tabella indicata ("types"). Questa è una best practice per validare una FK
+            "type_id"=>"exists:types,id"
             
         ];
     }

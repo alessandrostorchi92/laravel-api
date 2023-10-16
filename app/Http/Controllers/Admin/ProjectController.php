@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -23,8 +24,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function index(): View
-    {
+    public function index(): View {
 
         $projects = Project::all();
 
@@ -41,8 +41,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function show(string $slug): View
-    {
+    public function show(string $slug): View {
 
         $project = Project::where("slug", $slug)->firstOrFail(); // $project[0]
 
@@ -58,9 +57,14 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function create(): View
-    {
-        return view("admin.projects.create");
+    public function create(): View {
+
+        $types = Type::all();
+
+        // Così la view ha a disposizione una variabile "types", che contiene tutti i type della tabella types 
+        return view("admin.projects.create", compact("types"));
+
+
     }
 
     //*'STORE' FUNCTION
@@ -73,12 +77,13 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function store(ProjectStoreRequest $request): RedirectResponse
-    {
+    public function store(ProjectStoreRequest $request): RedirectResponse {
 
         // Procedo alla validazione base dei dati ricevuti
 
         $data = $request->validated();
+
+        // dd($data); OK 
 
         $data["slug"] = $this->generateSlug($data["title"]);
 
@@ -98,6 +103,8 @@ class ProjectController extends Controller
         return redirect()->route("admin.projects.show", $project->slug);
     }
 
+       //*'EDIT' FUNCTION
+
     /**
      * Ritorna una view "admin.projects.edit" con all'interno un form per modificare i dati dei progetti che corrisponde all'id ricevuto come argomento
      *
@@ -105,13 +112,15 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function edit(string $slug): View
-    {
+    public function edit(string $slug): View {
 
         $project = Project::where("slug", $slug)->firstOrFail();
+        $types = Type::all();
 
-        return view("admin.projects.edit", compact("project"));
+        return view("admin.projects.edit", compact("project", "types"));
     }
+
+     //*'UPDATE' FUNCTION
 
     /**
      * Riceve i dati inviati dal form edit e aggiorna il progetto che corrisponde
@@ -144,6 +153,8 @@ class ProjectController extends Controller
 
         return redirect()->route("admin.projects.show", $project->slug);
     }
+
+    //*'DELETE' FUNCTION
 
     /**
      * Rimuove il progetto che corrisponde allo slug ricevuto come argomento
@@ -178,8 +189,7 @@ class ProjectController extends Controller
      * @return string $slug del titolo del progetto
      */
 
-    protected function generateSlug($title)
-    {
+    protected function generateSlug($title) {
 
         $counter = 0;
 

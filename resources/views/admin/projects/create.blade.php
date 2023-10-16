@@ -17,7 +17,7 @@
 
                 <label for="title" class="form-label fw-medium">Titolo</label><input type="text"
                     class="form-control @error('title') is-invalid @enderror" id="title"
-                    placeholder="Inserisci il titolo del nuovo progetto" name="title" value="{{ old("title") }}">
+                    placeholder="Inserisci il titolo del nuovo progetto" name="title" value="{{ old('title') }}">
 
                 @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -31,7 +31,7 @@
 
                 <label for="description" class="form-label fw-medium">Descrizione</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description"
-                    placeholder="Inserisci la descrizione del nuovo progetto" name="description" value="{{ old("description") }}"></textarea>
+                    placeholder="Inserisci la descrizione del nuovo progetto" name="description" value="{{ old('description') }}"></textarea>
 
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -43,9 +43,9 @@
 
             <div class="mb-4">
 
-                <label for="thumb" class="form-label fw-medium">Copertina</label><input type="text"
-                    id="thumb" class="form-control @error('thumb') is-invalid @enderror"
-                    placeholder="Inserisci l'immagine di copertina del fumetto" name="thumb" value="{{ old("thumb") }}">
+                <label for="thumb" class="form-label fw-medium">Copertina</label><input type="text" id="thumb"
+                    class="form-control @error('thumb') is-invalid @enderror"
+                    placeholder="Inserisci l'immagine di copertina del fumetto" name="thumb" value="{{ old('thumb') }}">
 
                 @error('thumb')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -57,22 +57,52 @@
 
             <div class="mb-4">
 
-                <label for="link" class="form-label">Link</label>
-                <input type="text" id="link" name="link" class="form-control @error("link") is-invalid                            
-                @enderror" value="{{old("link")}}">
+                <label for="link" class="form-label fw-medium">Link</label>
+                <input type="text" id="link" name="link"
+                    class="form-control @error('link') is-invalid                            
+                @enderror"
+                    value="{{ old('link') }}">
 
-                @error("link")
-                    <div class="invalid-feedback">{{$message}}</div>
+                @error('link')
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
 
             </div>
+
+            {{-- Type  --}}
+
+            <div class="mb-4">
+
+                <label class="form-label">Tipologia</label>
+
+                <select class="form-select @error('type') is-invalid @enderror" name="type_id">
+
+                    {{-- L'attributo hidden nel select permette di rendere visibile e inattiva un'option allo scopo di fornire una consegna all'utente --}}
+
+                    {{-- L'attributo selected assieme all'if ternario permette di salvare la selected selezionata  --}}
+
+                    @foreach ($types as $type)
+
+                        <option hidden>Seleziona la tipologia</option>
+                        <option value="{{$type->id}}">{{ $type->name }}</option>
+
+                    @endforeach
+
+                    @error('type')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
+                </select>
+
+            </div>
+
 
             {{-- Published_date --}}
 
             <div class="mb-4">
                 <label for="date" class="form-label fw-medium">Data</label>
                 <input type="date" id="date" name="published_date"
-                    class="form-control @error('published_date') is-invalid @enderror" value="{{ old("published_date") }}">
+                    class="form-control @error('published_date') is-invalid @enderror" value="{{ old('published_date') }}">
             </div>
 
             @error('published_date')
@@ -83,14 +113,16 @@
 
             <div class="mb-4">
 
-                <label for="language" class="form-label">Languages</label>
-                <input type="text" class="form-control @error("language") is-invalid                            
-                @enderror" id="language" name="language" value="{{old("language")}}" >
+                <label for="language" class="form-label fw-medium">Languages</label>
+                <input type="text"
+                    class="form-control @error('language') is-invalid                            
+                @enderror"
+                    id="language" name="language" value="{{ old('language') }}">
 
-                @error("language")
-                    <div class="invalid-feedback">{{$message}}</div>
+                @error('language')
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-                
+
             </div>
 
             {{-- Buttons container  --}}

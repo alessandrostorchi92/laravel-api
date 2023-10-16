@@ -68,6 +68,33 @@
 
             </div>
 
+            {{-- Type  --}}
+
+            <div class="mb-4">
+
+                <label class="form-label">Tipologia</label>
+
+                <select class="form-select @error('type') is-invalid @enderror" name="type_id">
+
+                    {{-- L'attributo hidden nel select permette di rendere visibile e inattiva un'option allo scopo di fornire una consegna all'utente --}}
+
+                    {{-- L'attributo selected assieme all'if ternario permette di salvare la selected selezionata  --}}
+
+                    @foreach ($types as $type)
+
+                        <option hidden>Seleziona la tipologia</option>
+                        <option value="{{$type->id}}" {{ $project->type_id === $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+
+                    @endforeach
+
+                    @error('type')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
+                </select>
+
+            </div>
+
             {{-- Published_date --}}
 
             <div class="mb-4">
