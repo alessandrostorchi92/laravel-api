@@ -24,6 +24,7 @@
 
                 <ul class="list-group list-group-flush">
 
+                    <li class="list-group-item"><span class="badge" style="background-color: rgb({{ $project->type->colour }})">{{ $project->type->name }}</span></li>
                     <li class="list-group-item">{{ $project->published_date }}</li>
                     <li class="list-group-item">{{ $project?->language }}</li>
 
