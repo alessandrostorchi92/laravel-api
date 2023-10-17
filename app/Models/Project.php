@@ -30,5 +30,15 @@ class Project extends Model {
          
     }
 
+    // Questo metodo mette in relazione la tabella projects con quella technologies
+    public function technologies() {
+
+
+        // Ad un progetto possono appartenere diverse technologies
+        return $this->belongsToMany(Technology::class);
+    }
+
+
+
 
 }
