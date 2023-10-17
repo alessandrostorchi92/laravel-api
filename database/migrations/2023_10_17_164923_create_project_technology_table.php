@@ -21,16 +21,17 @@ return new class extends Migration {
             //Rendo questa colonna una FK
             $table->foreign('project_id')
             ->references("id")
-            ->on("projects")
-            ->onDelete("set null");
+            ->on("projects");
+            
 
             //FK technologies
 
             $table->unsignedBigInteger("technology_id")->nullable();
+
+            //Rendo questa colonna una FK
             $table->foreign("technology_id")
             ->references("id")
-            ->on("technologies")
-            ->onDelete("set null");
+            ->on("technologies");
 
             $table->timestamps();
 
