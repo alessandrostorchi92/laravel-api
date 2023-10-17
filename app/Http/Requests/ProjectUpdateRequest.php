@@ -44,7 +44,8 @@ class ProjectUpdateRequest extends FormRequest {
             "link" => "required|url",
             "published_date" => "nullable|date",
             "language" => "nullable|string|max:50",
-            "type_id"=>"exists:types,id"
+            "type_id"=> "exists:types,id",
+            "technologies"=> "nullable|array",
 
         ];
     }
