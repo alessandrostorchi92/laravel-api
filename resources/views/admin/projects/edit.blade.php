@@ -31,7 +31,7 @@
 
             <div class="mb-4">
 
-                <label for="description" class="form-label">Descrizione</label>
+                <label for="description" class="form-label fw-medium">Descrizione</label>
                 <textarea id="description" name="description"
                     class="form-control @error('description') is-invalid                            
                         @enderror">{{ old('description', $project->description) }}</textarea>
@@ -61,7 +61,7 @@
 
             <div class="mb-4">
 
-                <label for="link" class="form-label">Link</label>
+                <label for="link" class="form-label fw-medium">Link</label>
                 <input type="text" id="link" name="link"
                     class="form-control @error('link') is-invalid                            
                 @enderror"
@@ -77,7 +77,7 @@
 
             <div class="mb-4">
 
-                <label class="form-label">Tipologia</label>
+                <label class="form-label fw-medium">Tipologia</label>
 
                 <select class="form-select @error('type') is-invalid @enderror" name="type_id">
 
@@ -99,6 +99,25 @@
 
             </div>
 
+            {{-- Technologies  --}}
+
+            <div class="mb-4">
+
+                <div>
+                    <label class="form-label fw-medium">Technologies</label>
+                </div>
+
+                @foreach ($technologies as $technology)
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="technologies[]" value="{{ $technology->id }}">
+                        <label class="form-check-label" for="inlineCheckbox1">{{ $technology->name }}</label>
+                    </div>
+
+                @endforeach
+
+            </div>
+
             {{-- Published_date --}}
 
             <div class="mb-4">
@@ -116,7 +135,7 @@
 
             <div class="mb-4">
 
-                <label for="language" class="form-label">Languages</label>
+                <label for="language" class="form-label fw-medium">Languages</label>
                 <input type="text"
                     class="form-control @error('language') is-invalid                            
                 @enderror"

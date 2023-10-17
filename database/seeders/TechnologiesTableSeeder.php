@@ -17,7 +17,7 @@ class TechnologiesTableSeeder extends Seeder{
 
         Technology::truncate();
 
-        $technologies=['Vue', 'React', 'Angular', 'JS', 'TS', 'HTML5', 'CSS3', 'SCSS', 'Bootstrap', 'Tailwind','Python', 'Java', 'PHP', 'SQL', 'Laravel', 'Flutter', 'NodeJs'];
+        $technologies=['Vue', 'React', 'JS', 'TS', 'HTML5', 'CSS3', 'SCSS', 'Bootstrap', 'Tailwind', 'PHP', 'MySQL', 'Laravel', 'Flutter'];
 
         foreach ($technologies as $technology) {
 

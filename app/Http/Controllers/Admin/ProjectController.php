@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -116,8 +117,9 @@ class ProjectController extends Controller
 
         $project = Project::where("slug", $slug)->firstOrFail();
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view("admin.projects.edit", compact("project", "types"));
+        return view("admin.projects.edit", compact("project", "types", "technologies"));
     }
 
      //*'UPDATE' FUNCTION
