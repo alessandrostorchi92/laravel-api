@@ -153,7 +153,12 @@ class ProjectController extends Controller
 
         // L'update() esegue le operazioni: l'istanza di Project, il fill() e il save() in un unico comando
 
-        //Assegnazione technologies per scrivere all’interno della tabella pivot i records, creando quindi una relazione tra due record, usando il metodo attach()
+        //Assegnazione technologies per scrivere all’interno della tabella pivot i records, creando quindi una relazione tra due record, usando il metodo attach(). prima di assegnare i nuovi tag, in caso di ulteriore modifica, cancello quelli precedenti
+        
+        // $project->technologies()->detach();
+        // $project->technologies()->attach($data["technologies"]);
+
+        //TODO Per aggiungere ed eliminare contemporaneamente dei record all’interno della tabella pivot possiamo utilizzare il metodo sync()
 
         $project->technologies()->sync($data["technologies"]);
 
