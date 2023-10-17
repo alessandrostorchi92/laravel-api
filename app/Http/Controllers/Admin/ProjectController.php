@@ -79,8 +79,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function store(ProjectStoreRequest $request): RedirectResponse
-    {
+    public function store(ProjectStoreRequest $request): RedirectResponse {
 
         // Procedo alla validazione base dei dati ricevuti
 
@@ -115,8 +114,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function edit(string $slug): View
-    {
+    public function edit(string $slug): View {
 
         $project = Project::where("slug", $slug)->firstOrFail();
         $types = Type::all();
@@ -136,8 +134,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function update(ProjectUpdateRequest $request, string $slug): RedirectResponse
-    {
+    public function update(ProjectUpdateRequest $request, string $slug): RedirectResponse {
 
         $project = Project::where("slug", $slug)->firstOrFail();
         $data = $request->validated();
@@ -156,6 +153,10 @@ class ProjectController extends Controller
 
         // L'update() esegue le operazioni: l'istanza di Project, il fill() e il save() in un unico comando
 
+        //Assegnazione technologies per scrivere all’interno della tabella pivot i records, creando quindi una relazione tra due record, usando il metodo attach()
+
+        $project->technologies()->sync($data["technologies"]);
+
         $project->update($data);
 
         return redirect()->route("admin.projects.show", $project->slug);
@@ -170,8 +171,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function destroy(string $slug): RedirectResponse
-    {
+    public function destroy(string $slug): RedirectResponse {
 
         // Conferisco solo all'admin la facoltà di eliminare i progetti 
 
@@ -197,8 +197,7 @@ class ProjectController extends Controller
      * @return string $slug del titolo del progetto
      */
 
-    protected function generateSlug($title)
-    {
+    protected function generateSlug($title) {
 
         $counter = 0;
 
