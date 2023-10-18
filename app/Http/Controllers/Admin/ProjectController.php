@@ -14,8 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class ProjectController extends Controller
-{
+class ProjectController extends Controller {
 
     //*'INDEX' FUNCTION
 
@@ -25,8 +24,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function index(): View
-    {
+    public function index(): View {
 
         $projects = Project::all();
 
@@ -43,8 +41,7 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function show(string $slug): View
-    {
+    public function show(string $slug): View {
 
         $project = Project::where("slug", $slug)->firstOrFail(); // $project[0]
 
@@ -60,13 +57,13 @@ class ProjectController extends Controller
      * @return View
      */
 
-    public function create(): View
-    {
+    public function create(): View {
 
         $types = Type::all();
+        $technologies = Technology::all();
 
         // Così la view ha a disposizione una variabile "types", che contiene tutti i type della tabella types 
-        return view("admin.projects.create", compact("types"));
+        return view("admin.projects.create", compact("types", "technologies"));
     }
 
     //*'STORE' FUNCTION
@@ -101,6 +98,10 @@ class ProjectController extends Controller
 
         // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
         $project = Project::create($data);
+
+        // Siccome l'attach per funzionare ha bisogno dell'id del project e siccome questo viene generato solo dopo il save(), siamo costretti ad eseguire l'attach solo dopo aver eseguito il save/create
+
+        $project->technologies()->attach($data["technologies"]);
 
         return redirect()->route("admin.projects.show", $project->slug);
     }
@@ -154,7 +155,7 @@ class ProjectController extends Controller
         // L'update() esegue le operazioni: l'istanza di Project, il fill() e il save() in un unico comando
 
         //Assegnazione technologies per scrivere all’interno della tabella pivot i records, creando quindi una relazione tra due record, usando il metodo attach(). prima di assegnare i nuovi tag, in caso di ulteriore modifica, cancello quelli precedenti
-        
+
         // $project->technologies()->detach();
         // $project->technologies()->attach($data["technologies"]);
 
@@ -176,7 +177,8 @@ class ProjectController extends Controller
      * @return RedirectResponse
      */
 
-    public function destroy(string $slug): RedirectResponse {
+    public function destroy(string $slug): RedirectResponse
+    {
 
         // Conferisco solo all'admin la facoltà di eliminare i progetti 
 
@@ -202,7 +204,8 @@ class ProjectController extends Controller
      * @return string $slug del titolo del progetto
      */
 
-    protected function generateSlug($title) {
+    protected function generateSlug($title)
+    {
 
         $counter = 0;
 

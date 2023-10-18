@@ -32,8 +32,9 @@ class ProjectStoreRequest extends FormRequest {
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+
+    public function rules(): array {
+
         return [
 
             "title" => "required|string|max:100",
@@ -43,9 +44,11 @@ class ProjectStoreRequest extends FormRequest {
             "published_date" => "nullable|date",
             "language" => "nullable|string|max:50",
             // Exists assicura che l'id passato esista nella tabella indicata ("types"). Questa è una best practice per validare una FK
-            "type_id"=>"exists:types,id"
+            "type_id"=>"required|exists:types,id",
+            "technologies[]"=> "required|array"
             
         ];
+        
     }
 
 /**
@@ -53,8 +56,9 @@ class ProjectStoreRequest extends FormRequest {
  *
  * @return array<string, string>
  */
-public function messages(): array
-{
+
+public function messages(): array {
+
     return [
         
         'title.required' => "Devi specificare un titolo per il progetto",
@@ -66,8 +70,11 @@ public function messages(): array
         'thumb.max' => "Ops! L'immagine supera la lunghezza massima di 5120 caratteri",
         'published_date.date' => "La data non è espressa nel formato giusto",
         'language.max' => "Il nome della lingua indicata supera i 50 caratteri",
+        'type_id.exists' => "Il campo della tipologia è obbligatorio",
+        'technologies[].required' => "Seleziona almeno un linguaggio utilizzato"
 
     ];
+
 }
 
 }

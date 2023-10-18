@@ -44,8 +44,8 @@ class ProjectUpdateRequest extends FormRequest {
             "link" => "required|url",
             "published_date" => "nullable|date",
             "language" => "nullable|string|max:50",
-            "type_id"=> "exists:types,id",
-            "technologies"=> "nullable|array",
+            "type_id"=>"required|exists:types,id",
+            "technologies[]"=> "required|array"
 
         ];
     }
@@ -69,6 +69,8 @@ public function messages(): array {
         'thumb.max' => "Ops! L'immagine supera la lunghezza massima di 5120 caratteri",
         'published_date.date' => "La data non è espressa nel formato giusto",
         'language.max' => "Il nome della lingua indicata supera i 50 caratteri",
+        'type_id.required' => "Il campo della tipologia è obbligatorio.",
+        'technologies[].required' => "Seleziona almeno un linguaggio utilizzato"
 
     ];
 }

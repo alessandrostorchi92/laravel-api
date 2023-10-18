@@ -73,29 +73,50 @@
 
             <div class="mb-4">
 
-                <label class="form-label">Tipologia</label>
+                <label for="type_id" class="form-label">Tipologia</label>
 
-                <select class="form-select @error('type') is-invalid @enderror" name="type_id">
+                <select class="form-select @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
 
                     {{-- L'attributo hidden nel select permette di rendere visibile e inattiva un'option allo scopo di fornire una consegna all'utente --}}
 
                     {{-- L'attributo selected assieme all'if ternario permette di salvare la selected selezionata  --}}
 
                     @foreach ($types as $type)
-
                         <option hidden>Seleziona la tipologia</option>
-                        <option value="{{$type->id}}">{{ $type->name }}</option>
-
+                        <option value="{{ $type->id }}">{{ $type->name }}</option>
                     @endforeach
 
-                    @error('type')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-
                 </select>
-
+                
+                @error('type_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                
             </div>
 
+            {{-- Technologies  --}}
+
+            <div class="mb-4">
+
+                <div>
+                    <label class="form-label fw-medium">Technologies</label>
+                </div>
+
+                @foreach ($technologies as $technology)
+
+                    <div class="form-check form-check-inline @error('technologies[]') is-invalid @enderror"">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="technologies[]"
+                            value="{{ $technology->id }}">
+                        <label class="form-check-label" for="inlineCheckbox1">{{ $technology->name }}</label>
+                    </div>
+
+                @endforeach
+
+                @error('technologies[]')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+
+            </div>
 
             {{-- Published_date --}}
 
