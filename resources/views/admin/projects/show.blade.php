@@ -10,7 +10,7 @@
 
             <div class="col-12 d-flex  justify-content-center">
 
-                <div class="card text-center w-50">
+                <div class="card text-center w-25">
 
                     <img src="{{ $project->thumb }}" class="card-img-top" alt="...">
 
@@ -27,13 +27,16 @@
                         <li class="list-group-item"><span class="badge"
                                 style="background-color: rgb({{ $project->type->colour }})">{{ $project->type->name }}</span>
                         </li>
-                        <div>
+
+                        <li class="list-group-item">
+
                             @foreach ($project->technologies as $technology)
-                                <li class="list-group-item"><span class="badge"
-                                        style="background-color: rgb({{ $technology->colour }})">{{ $technology->name }}
-                                </li>
+                                <div class="badge" style="background-color: rgb({{ $technology->colour }})">
+                                    {{ $technology->name }}</div>
                             @endforeach
-                        </div>
+
+                        </li>
+
                         <li class="list-group-item">{{ $project->published_date }}</li>
                         <li class="list-group-item">{{ $project?->language }}</li>
 
@@ -43,6 +46,11 @@
 
             </div>
 
+        </div>
+
+        <div class="mt-5 d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary btn-lg border-0 rounded-50 fw-medium"><a
+            class="text-decoration-none text-light" href="{{ route('admin.projects.index') }}">BACK</a></button>
         </div>
 
     </div>

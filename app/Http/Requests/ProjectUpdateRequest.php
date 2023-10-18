@@ -45,7 +45,7 @@ class ProjectUpdateRequest extends FormRequest {
             "published_date" => "nullable|date",
             "language" => "nullable|string|max:50",
             "type_id"=>"required|exists:types,id",
-            "technologies[]"=> "required|array"
+            "technologies"=> "required|array"
 
         ];
     }
@@ -70,7 +70,7 @@ public function messages(): array {
         'published_date.date' => "La data non è espressa nel formato giusto",
         'language.max' => "Il nome della lingua indicata supera i 50 caratteri",
         'type_id.required' => "Il campo della tipologia è obbligatorio.",
-        'technologies[].required' => "Seleziona almeno un linguaggio utilizzato"
+        'technologies.required' => "Seleziona almeno un linguaggio utilizzato"
 
     ];
 }
