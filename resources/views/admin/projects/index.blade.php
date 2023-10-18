@@ -32,6 +32,15 @@
                             <ul class="list-group list-group-flush">
                                 
                                 <li class="list-group-item"><span class="badge" style="background-color: rgb({{ $project->type->colour }})">{{ $project->type->name }}</span></li>
+
+                                <div>
+                                    @foreach ($project->technologies as $technology)
+                                        <li class="list-group-item"><span class="badge"
+                                                style="background-color: rgb({{ $technology->colour }})">{{ $technology->name }}
+                                        </li>
+                                    @endforeach
+                                </div>
+                                
                                 <li class="list-group-item">{{ $project->published_date }}</li>
                                 <li class="list-group-item fs-3 text">{{ $project->language }}</li>
     

@@ -99,9 +99,13 @@ class ProjectController extends Controller {
         // Il ::create esegue le operazioni l'istanza di Project, il fill() e il save() in un unico comando
         $project = Project::create($data);
 
-        // Siccome l'attach per funzionare ha bisogno dell'id del project e siccome questo viene generato solo dopo il save(), siamo costretti ad eseguire l'attach solo dopo aver eseguito il save/create
+        // Siccome l'attach per funzionare ha bisogno dell'id del project e siccome questo viene generato solo dopo il save(), sono costretto ad eseguire l'attach solo dopo aver eseguito il save/create
 
-        $project->technologies()->attach($data["technologies"]);
+        // se l'array associativo $data contiene una chiave chiamata "technologies"
+        if (key_exists("technologies", $data)) {
+            //attach($data["technologies"]) = Operazione di "associamento" tra un progetto e un insieme di tecnologie
+            $project->technologies()->attach($data["technologies"]);
+        }
 
         return redirect()->route("admin.projects.show", $project->slug);
     }

@@ -92,7 +92,7 @@
                     @endforeach
 
                 </select>
-                
+
                 @error('type_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -107,9 +107,9 @@
 
                 @foreach ($technologies as $technology)
 
-                    <div class="form-check form-check-inline @error('technologies[]') is-invalid @enderror"">
+                    <div class="form-check form-check-inline @error('technologies[]') is-invalid @enderror">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="technologies[]"
-                            value="{{ $technology->id }}">
+                            value="{{ $technology->id }}" {{ $project?->technologies->contains($technology->id) ? 'checked' : ''  }}>
                         <label class="form-check-label" for="inlineCheckbox1">{{ $technology->name }}</label>
                     </div>
                     
